@@ -1,0 +1,54 @@
+:root{
+    --button-color : 
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(173, 173, 179);
+    font-family: "Roboto", sans-serif;
+}
+
+button {
+    background-color: rgb(94, 81, 170);
+    color: white;
+    border-radius: 15px;
+    height: 50px;
+    width: 250px;
+}
+
+button:hover {
+    background-color: rgb(119, 115, 175);
+}
+
+header  {
+    margin: 40px;
+}
+
+header p {
+    float: right;
+}
+
+header a:hover{
+    color: rgb(39, 88, 221)
+}
+
+.game-area {
+    display: block;
+    margin: 60px auto;
+    padding: 40px;
+    width: 40vw;
+    text-align: center;
+}
+
+.game-start button {
+    width: 120px;
+}
+
+
+
+
+
+
