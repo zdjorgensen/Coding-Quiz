@@ -10,20 +10,37 @@
 
 <body>
     <header> 
-        <a href="view-high-scores"> View high scores </a> 
-        <p class="timer-style"> Time: 0</p>
+        <a href="#view-high-scores"> View high scores </a> 
+        <p id="countdown"> Time: 0 </p>
     </header>
 
-    <div class="game-area">
-        <div class="game-start">
+    <!-- Quiz Container -->
+    <section class="container">
+        <div class="start">
             <h1> Coding Quiz Challenge </h1>
             <p> Try to answer the following code-related questions withing the time limit.
                 Keep in mind that incorrect answers will penalize your score/time 
                 by ten seconds!
             </p>
-            <button> Start Quiz </button>
+            <button id="start-btn"> Start Quiz </button>
+        </div>  
+        <div class="quiz">
+            <div id="displayed-question"> </div> 
+            <div id="choices">
+                <div class="choice" id="1" onclick="checkAnswer(1)"></div>
+                <div class="choice" id="2" onclick="checkAnswer(2)"></div>
+                <div class="choice" id="3" onclick="checkAnswer(3)"></div>
+                <div class="choice" id="4" onclick="checkAnswer(4)"></div>  
+            </div>
+            <hr>
+            <p id="msg"></p>         
         </div>
-    </div>
+        <div class="results">
+            <h1> Results! </h1>
+        </div>
+
+
+    </section>
 
     <script src="./assets/js/script.js"></script>
 </body>
