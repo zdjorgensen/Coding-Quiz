@@ -10,12 +10,13 @@
 
 <body>
     <header> 
-        <a href="#view-high-scores"> View high scores </a> 
+        <a href="#" id="link"> View high scores </a> 
         <p id="countdown"> Time: 0 </p>
     </header>
 
     <!-- Quiz Container -->
     <section class="container">
+        <!-- Starting div -->
         <div class="start">
             <h1> Coding Quiz Challenge </h1>
             <p> Try to answer the following code-related questions withing the time limit.
@@ -24,6 +25,7 @@
             </p>
             <button id="start-btn"> Start Quiz </button>
         </div>  
+        <!-- Quiz inprogress -->
         <div class="quiz">
             <div id="displayed-question"> </div> 
             <div id="choices">
@@ -35,11 +37,22 @@
             <hr>
             <p id="msg"></p>         
         </div>
+        <!-- After quiz is finished -->
         <div class="results">
             <h1> Results! </h1>
+            <p id="high-score-el"> </p>
+            <label for="initials"> Enter initials: </label>
+            <input type="initials" name="initials" id="initials"> 
+            <button class="choice" id="submit"> Submit </d>
         </div>
+        <!-- View high scores -->
+        <div class="high-score">
+            <h1> High Scores </h1>
+            <ul id="high-score-list"></ul>
+            <button class="choice" id="reset"> Go Back </button>
+            <button class="choice" id="clear"> Clear Scores </button>
 
-
+        </div>
     </section>
 
     <script src="./assets/js/script.js"></script>

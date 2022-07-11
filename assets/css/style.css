@@ -3,7 +3,9 @@
     --hover-color: rgb(119, 115, 175);
 }
 
-* {
+*,
+*::before,
+*::after{
     box-sizing: border-box;
 }
 
@@ -24,6 +26,18 @@ header p {
 
 header a:hover{
     color: rgb(39, 88, 221)
+}
+
+label { 
+    margin:10px;
+}
+
+input {
+    height: 40px;
+    width: 200px;
+    background-color: rgb(206, 206, 206);
+    border: 2px solid black;
+    font-size: 25px;
 }
 
 .start h1 {
@@ -54,10 +68,6 @@ header a:hover{
     padding: 40px;
     width: 60vw;
     text-align: center;
-}
-
-.hidden-box {
-    visibility: hidden;
 }
 
 .choice {
@@ -109,6 +119,35 @@ header a:hover{
 .results {
     display: none;
 }
+
+#high-score-el {
+    font-size: 20px;
+}
+
+#submit {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+}
+
+.high-score {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: rgb(66, 62, 62);
+    color: white;
+  }
+
+#reset, #clear {
+    width: 160px;
+    height: 50px;
+
+}
+
 
 
 

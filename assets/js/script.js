@@ -1,20 +1,29 @@
 var container = document.querySelector(".container");
 var switchEl = document.querySelector('.hidden-box');
-var timerEl = document.getElementById('countdown');
 var start = document.querySelector('.start');
 var quiz = document.querySelector('.quiz');
+var answer = document.querySelector('.choice');
+var results = document.querySelector('.results');
+var highScore = document.querySelector('.high-score');
+var initialsInput = document.querySelector('#initials');
+var timerEl = document.getElementById('countdown');
 var displayedQuestion = document.getElementById('displayed-question');
 var choiceOne = document.getElementById('1');
 var choiceTwo = document.getElementById('2');
 var choiceThree = document.getElementById('3');
 var choiceFour = document.getElementById('4');
-var answer = document.querySelector('choice');
 var msg = document.getElementById('msg');
-var results = document.getElementById('results');
+var highScoreEl = document.getElementById('high-score-el');
+var submitBtn = document.getElementById('submit');
+var highScoreList = document.getElementById('high-score-list');
+var reset = document.getElementById('reset');
+var clearScores = document.getElementById('clear');
+var link = document.getElementById('link');
 
 // How many seconds remain in timer
-var timeLeft = 3; 
-// Object that stores the questions, and answers
+var timeLeft = 75; 
+
+// Object that stores the questions, choices, and the answers
 var questions = [
     { 
         question: "Commonly used data types do NOT Include:",
@@ -37,11 +46,11 @@ var questions = [
         choiceA: "1. Numbers and Strings",
         choiceB: "2. Other Arrays",
         choiceC: "3. Booleans",
-        choiceD: "All of the Above",
+        choiceD: "4. All of the Above",
         correct: "4"
     },
     {
-        question: "String values must be enclosed withing _______ when being assigned to variables.",
+        question: "String values must be enclosed within _______ when being assigned to variables.",
         choiceA: "1. Commas",
         choiceB: "2. Curly Brackets",
         choiceC: "3. Quotes",
@@ -57,61 +66,125 @@ var questions = [
         correct: "4"
     }
 ];
+var questionsLength = questions.length;
 var currentQuestion = 0;
+var currentScore = 0;
 
+// Holds previous scores
+var list = [];
 
+// View Highscores
+link.addEventListener("click", function(){
+    start.style.display = "none";
+    highScore.style.display = "block";
+    getHighScores();
+})
 
 // Timer that counts down from 75
 function countdown() {
-    
     var timeInterval = setInterval(function () {
-       if(timeLeft > 0) {
+       if(timeLeft > 0 && currentQuestion<questionsLength) {
         timerEl.textContent = 'Time: ' + timeLeft;
         timeLeft--;
         } else {
-            timerEl.textContent = 'Time: ' + timeLeft;
+            currentScore = timeLeft;
+            if(currentScore < 0) currentScore = 0; //Stops currentScore from being a negative value
+            timerEl.textContent = 'Time: ' + currentScore;
             clearInterval(timeInterval);
-            // showResults();
+            showResults();
         }
     }, 1000);
-}
+};
 
+// Starts the quiz and timer
 container.addEventListener("click", function(event){
     var element = event.target;
-    if (element.matches("button")) {
+    if (element.matches("#start-btn")) {
         countdown();
         displayQuestion();
     }
 });
-
+    
+// Displays the current question and the choices to that qustion
 function displayQuestion() {
-    
-    // displays the current question and choices
-    displayedQuestion.innerHTML = "<h1>" + questions[currentQuestion].question + "</h1>"
-    choiceOne.innerHTML =  questions[currentQuestion].choiceA;
-    choiceTwo.innerHTML =  questions[currentQuestion].choiceB;
-    choiceThree.innerHTML =  questions[currentQuestion].choiceC;
-    choiceFour.innerHTML =  questions[currentQuestion].choiceD;
-    
+    if(currentQuestion < questionsLength){
+        displayedQuestion.innerHTML = "<h1>" + questions[currentQuestion].question + "</h1>"
+        choiceOne.innerHTML =  questions[currentQuestion].choiceA;
+        choiceTwo.innerHTML =  questions[currentQuestion].choiceB;
+        choiceThree.innerHTML =  questions[currentQuestion].choiceC;
+        choiceFour.innerHTML =  questions[currentQuestion].choiceD;
+    }
+
     start.style.display = "none";
     quiz.style.display = "block";
-}
 
-// Checks to see if answer is correct and updates the timer if answer is wrong
-// and updates the current questions
+    if(currentQuestion == questionsLength){
+        showResults();
+    }
+};
+
+// Checks to see if answer is correct as long as there is still time left 
+// and updates the timer if answer is wrong. Then it 
+// updates the current questions
 function checkAnswer(answer) {
-    if (answer != questions[currentQuestion].correct){
-        msg.textContent="Wrong!";
-        timeLeft = timeLeft - 10;
-    }else {
-        msg.textContent="Correct!";
+    if(timeLeft>0) {
+        if (answer != questions[currentQuestion].correct){
+            msg.textContent="Wrong!";
+            timeLeft = timeLeft - 10;
+        } else {
+            msg.textContent="Correct!";
+        }
     }
     currentQuestion++;
     displayQuestion();
 };
 
+// Shows the results and final score
 function showResults(){
+    quiz.style.display = "none";
     results.style.display = "block";
-}
+    highScoreEl.textContent= "Your final score is " + currentScore + ".";
+};
+
+// Puts initials and score into local storage
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Object submitScores
+    var submitScores = {
+        initialsInput: initialsInput.value.trim(),
+        score: currentScore
+    };
+
+    localStorage.setItem("submitScores", JSON.stringify(submitScores));
+    results.style.display = "none";
+    highScore.style.display = "block";
+    getHighScores();
+});
+
+// Gets highscores from local storage
+function getHighScores(){
+    var previousScores = JSON.parse(localStorage.getItem("submitScores"));
+    if(previousScores !== null) {
+        list = previousScores;
+        highScoreList.innerHTML = list.initialsInput + " " + list.score;
+    }
+};
+
+// Restarts the quiz
+reset.addEventListener("click", function(event) {
+    window.location.reload();
+});
+
+// Clears local storage
+clearScores.addEventListener("click", function(event) {
+    event.preventDefault();
+    var element = event.target;
+    if(element.matches("#clear")){
+        localStorage.clear();
+        // getHighScores();
+    }
+});
+
 
 
