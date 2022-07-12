@@ -3,9 +3,7 @@
     --hover-color: rgb(119, 115, 175);
 }
 
-*,
-*::before,
-*::after{
+* {
     box-sizing: border-box;
 }
 
@@ -21,7 +19,6 @@ header  {
 
 header p {
     float: right;
-    
 }
 
 header a:hover{
@@ -93,6 +90,7 @@ input {
     background-color: var(--hover-color);
 }
 
+/* Keeps the quiz div hidden until start button is clicked */
 .quiz {
     display: none;
 }
@@ -113,8 +111,9 @@ input {
     font-style: italic;
     color: rgb(88, 86, 86);
     text-align: left;
-    
 }
+
+/* Keeps the results div hidden until quiz is finished */
 
 .results {
     display: none;
@@ -131,6 +130,7 @@ input {
     font-size: 18px;
 }
 
+/* Keeps the high score div hidden until initials and score are saved */
 .high-score {
     display: none;
 }
@@ -142,10 +142,10 @@ ul {
     color: white;
   }
 
+ /* For the reset and clear buttons */
 #reset, #clear {
     width: 160px;
     height: 50px;
-
 }
 
 

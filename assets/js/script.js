@@ -73,7 +73,7 @@ var currentScore = 0;
 // Holds previous scores
 var list = [];
 
-// View Highscores
+// View highscores link
 link.addEventListener("click", function(){
     start.style.display = "none";
     highScore.style.display = "block";
@@ -150,12 +150,15 @@ function showResults(){
 submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Object submitScores
-    var submitScores = {
-        initialsInput: initialsInput.value.trim(),
-        score: currentScore
-    };
-
+    // Checks to see if the input is blank otherwise creates object submitScores
+    if(initialsInput.value.trim() === ""){
+        return;
+    } else {
+        var submitScores = {
+            initialsInput: initialsInput.value,
+            score: currentScore
+        };
+    }
     localStorage.setItem("submitScores", JSON.stringify(submitScores));
     results.style.display = "none";
     highScore.style.display = "block";
@@ -171,7 +174,7 @@ function getHighScores(){
     }
 };
 
-// Restarts the quiz
+// Reloads the page to put user back to the start div
 reset.addEventListener("click", function(event) {
     window.location.reload();
 });
@@ -182,9 +185,5 @@ clearScores.addEventListener("click", function(event) {
     var element = event.target;
     if(element.matches("#clear")){
         localStorage.clear();
-        // getHighScores();
     }
 });
-
-
-
